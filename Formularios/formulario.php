@@ -29,9 +29,9 @@ Ciudad: <select name="cities">
 
 <li>
 Sexo: 
-Otros: <input type="radio" value="o" name="gender[]"/>
-Mujer: <input type="radio" value="m" name="gender[]"/>
-Hombre: <input type="radio" value="h" name="gender[]"/>
+Otros: <input type="radio" value="o" name="gender"/>
+Mujer: <input type="radio" value="m" name="gender"/>
+Hombre: <input type="radio" value="h" name="gender"/>
 </li>
 <li>
 Mascotas: 
@@ -53,7 +53,7 @@ Foto: <input type="file" name="photo"/>
 </li>
 
 <li>
-Submit: <input type="submit" name="photo"/>
+Submit: <input type="submit" name="submit"/>
 </li>
 <li>
 Reset: <input type="reset" name="reset"/>
