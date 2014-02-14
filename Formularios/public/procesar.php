@@ -41,8 +41,23 @@ while(file_exists($destino."/".$photo_name))
 // Inyectar nombre_final en post.
 $_POST[]=$photo_name;
 
+$arraysalida=array();
+// Para cada elemento del array POST
+foreach ($_POST as $value)
+{
+	// Si no es array
+	if(!is_array($value))
+		// Enviar a arraysalida
+		$arraysalida[]=$value;		
+	// Si es array
+	else	
+		// Dividir por pipes y
+		// enviar a arraysalida
+		$arraysalida[]=implode('|',$value);	
+}
+	
 // Separar por comas
-$data=implode(',',$_POST)."\n";
+$data=implode(',',$arraysalida)."\n";
 
 // Subir la foto
 move_uploaded_file($_FILES['photo']['tmp_name'],
