@@ -5,7 +5,7 @@
 $archivostring = file_get_contents('usuarios.txt');
 // Separar string por lineas en un array filas
 $filas = explode("\n",$archivostring);
-echo "<a href=\"formulario.php\">Insertar Usuario</a>";
+echo "<a href=\"/usuarios.php?action=insert\">Insertar Usuario</a>";
 echo "<br/>";
 
 // Dibujo la tabla
@@ -36,9 +36,9 @@ foreach($filas as $fila)
 		
 		// Mostrar opciones
 		echo "<td>";
-		echo "<a href=\"#\">Update</a>";
+		echo "<a href=\"/usuarios.php?action=update\">Update</a>";
 		echo "&nbsp;";
-		echo "<a href=\"#\">Delete</a>";
+		echo "<a href=\"/usuarios.php?action=delete\">Delete</a>";
 		echo "</td>";
 		
 		
