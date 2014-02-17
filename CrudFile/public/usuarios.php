@@ -15,29 +15,16 @@ switch ($action)
 		echo "esto es update";
 		if ($_POST)
 		{
-			echo "<pre>POST: ";
-			print_r($_POST);
-			echo "</pre>";
-			
-// 			echo "<pre>FILES: ";
-// 			print_r($_FILES);
-// 			echo "</pre>";
-
-			// Leer el archivo de texto en un string
-			$data=file_get_contents('usuarios.txt');
-			// Convertir en array
-			$data=explode("\n",$data);
-			// Convertir los nuevos datos en una linea valida
-			foreach ($_POST as $key => $value)
-			{
-				
-			}
-						
+			$data=getArrayFromTxt('usuarios.txt');
+			$arrayout=getUserLine($_POST);
+			$arrayuser=mapUser2File($arrayout);
+			$usuario = implode(',',$arrayuser);
 			// Modificar la linea del usuario con la linea valida
-			// Convertir en un string todos los datos
-			// Sobreescribir el archivo de texto
-			
-			
+			$data[$arrayout['id']]=$usuario;
+			wrt2File('usuarios.txt', $data);
+			// TODO: Implementar cambiar imagen
+			// Saltar a tabla de usuarios
+			header('Location: /usuarios.php');
 		}
 		else
 		{
@@ -51,18 +38,12 @@ switch ($action)
 	case 'insert':
 		if ($_POST)
 		{
-			// Insertar datos
-					
-			// Inyectar nombre_final en post.			
 			$photo_name = renameFile($_FILES['photo']['name'],
 					$_SERVER['DOCUMENT_ROOT']);
-			$destino = $_SERVER['DOCUMENT_ROOT'];
-			
-			$_POST[]= $photo_name;
-			
-			// Subir la foto
+			$destino = $_SERVER['DOCUMENT_ROOT'];			
+			// Inyectar nombre_final en post.			
+			$_POST[]= $photo_name;			
 			uploadFile($photo_name, $destino, $_FILES['photo']);
-						
 			insert2Txt($_POST, 'usuarios.txt');			
 			// Saltar a tabla de usuarios
 			// header('Location: http://formularios.local/usuarios.php');
@@ -73,8 +54,7 @@ switch ($action)
 		{
 			echo "esto es insert";
 			include('formulario.php');
-		}
-		
+		}		
 	break;
 	
 	case 'delete':

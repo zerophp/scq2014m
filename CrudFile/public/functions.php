@@ -119,6 +119,82 @@ function getUserData($id)
 	// Retornar el array
 }
 
+/**
+ * Get data from text file
+ * 
+ * @param string $filename
+ * @return array:
+ */
+function getArrayFromTxt($filename)
+{
+	// Leer el archivo de texto en un string
+	$data=file_get_contents($filename);
+	// Convertir en array
+	$data=explode("\n",$data);
+	return $data;
+}
+
+/**
+ * Convertir los nuevos datos en una linea valida
+ * @param arary $data
+ * @return array 
+ */
+function getUserLine($data)
+{
+	
+	foreach ($data as $key => $value)
+	{
+		if(is_array($value))
+		{
+			$arrayout[$key]=implode('|',$value);
+		}
+		else
+		{
+			$arrayout[$key]=$value;
+		}
+	
+	}
+	return $arrayout;
+}
+
+/**
+ * Mapeo de datos al array asociativo
+ * @param unknown $arrayout
+ * @return unknown
+ */
+function mapUser2File($arrayout)
+{
+	$arrayuser['0']=$arrayout['id'];
+	$arrayuser['1']=$arrayout['name'];
+	$arrayuser['2']=$arrayout['lastname'];
+	$arrayuser['3']=$arrayout['email'];
+	$arrayuser['4']=$arrayout['password'];
+	$arrayuser['5']=$arrayout['description'];
+	$arrayuser['6']=$arrayout['cities'];
+	$arrayuser['7']=$arrayout['gender'];
+	$arrayuser['8']=$arrayout['pets'];
+	$arrayuser['9']=$arrayout['languages'];
+	$arrayuser['10']='Updated';
+	$arrayuser['11']=$arrayout['photo'];
+	
+	return $arrayuser;
+}
+
+/**
+ * Write data to txt file 
+ * @param string $filename
+ * @param array $data
+ * @return null
+ */
+function wrt2File($filename, $data)
+{
+	// Convertir en un string todos los datos
+	$data=implode("\n", $data);
+	// Sobreescribir el archivo de texto
+	file_put_contents($filename, $data);
+	return;
+}
+
 
 
 
