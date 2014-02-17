@@ -13,5 +13,6 @@
 1,jjjj,jjj,jjjj,jjj,j,santiago,Enviar,public_1.
 1,mmmm,mmm,mmm,mmm,mmmm,santiago,o,gato,galego|spanish,Enviar,Penguins.jpg
 1,ggg,gg,g,g,g,santiago,m,perro,galego,Enviar,Penguins_1.jpg
-public_1.
 1,jjjj,asdasd,asdasd,asda,sdasd,santiago,Enviar,Penguins_1.jpg
+,hhh,hhh,hhhh,hhh,hhhh,vigo,o,gato,galego,Enviar,Koala.jpg
+-,bbb,b,bb,b,bb,santiago,o,gato,galego,Enviar,Penguins.jpg

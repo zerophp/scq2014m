@@ -73,5 +73,58 @@ function insert2Txt($datafile, $filename)
 	return null;
 }
 
+/**
+ * Read user by id from txt file
+ * @param unknown $id
+ * @return array
+ */
+function getUserData($id)
+{
+	// Tomar id
+	// Leer en un string el archivo txt
+	$data = file_get_contents('usuarios.txt');
+	// Convertir el string en array
+	$data = explode("\n",$data);
+	
+	// Leer la fila id
+	// Convertir la fila en array usuario
+	$usuario=explode(',',$data[$id]);
+	foreach($usuario as $key => $value)
+	{
+		if(strpos($value, '|'))
+		{
+			$arrayout[]=explode('|',$value);
+		}
+		else
+		{
+			$arrayout[]=$value;
+		}	
+		
+	}
+	
+	// Mapeo de datos al array asociativo
+	$arrayout['id']=$arrayout['0'];
+	$arrayout['name']=$arrayout['1'];
+	$arrayout['lastname']=$arrayout['2'];
+	$arrayout['email']=$arrayout['3'];
+	$arrayout['password']=$arrayout['4'];
+	$arrayout['description']=$arrayout['5'];
+	$arrayout['cities']=$arrayout['6'];
+	$arrayout['gender']=$arrayout['7'];
+	$arrayout['pets']=is_array($arrayout['8'])?$arrayout['8']:array($arrayout['8']);
+	$arrayout['languages']=is_array($arrayout['9'])?$arrayout['9']:array($arrayout['9']);
+	$arrayout['photo']=$arrayout['11'];
+	
+	return $arrayout;
+	// Retornar el array
+}
+
+
+
+
+
+
+
+
 
 
