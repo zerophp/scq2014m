@@ -58,7 +58,22 @@ switch ($action)
 	break;
 	
 	case 'delete':
-		echo "esto es delete";
+		if($_POST)
+		{			
+			if($_POST['borrar']=="Si")
+			{
+				$data=getArrayFromTxt('usuarios.txt');
+				unset($data[$_POST['id']]);
+				// TODO: delete image
+				wrt2File('usuarios.txt', $data);				
+			}
+			header('Location: /usuarios.php');
+		}
+		else
+		{
+			$usuario=getUserData($_GET['id']);
+			include('formulario_delete.php');			
+		}		
 	break;
 	
 	case 'select':
@@ -100,7 +115,7 @@ switch ($action)
 				echo "<td>";
 				echo "<a href=\"/usuarios.php?action=update&id=".$key."\">Update</a>";
 				echo "&nbsp;";
-				echo "<a href=\"/usuarios.php?action=delete\">Delete</a>";
+				echo "<a href=\"/usuarios.php?action=delete&id=".$key."\">Delete</a>";
 				echo "</td>";
 				
 				
