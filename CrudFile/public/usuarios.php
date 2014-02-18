@@ -5,10 +5,6 @@ include ('../application/models/models_uploadfile.php');
 
 $config = parse_ini_file('../application/configs/settings.ini');
 
-echo "<pre>";
-print_r($config);
-echo "</pre>";
-
 if(isset($_GET['action']))
 	$action=$_GET['action'];
 else
@@ -37,7 +33,10 @@ switch ($action)
 			// Tomar el id
 			$usuario=getUserData($_GET['id']);			
 			// Pasarla al formulario
-			include('../application/views/usuarios/insert.php');
+			ob_start();
+				include('../application/views/usuarios/insert.php');
+				$content=ob_get_contents();
+			ob_end_clean();
 		}
 	break;
 	
@@ -58,7 +57,10 @@ switch ($action)
 		}
 		else
 		{
+			ob_start();
 			include('../application/views/usuarios/insert.php');
+			$content=ob_get_contents();
+			ob_end_clean();
 		}		
 	break;
 	
@@ -77,7 +79,10 @@ switch ($action)
 		else
 		{
 			$usuario=getUserData($_GET['id']);
-			include('../application/views/usuarios/delete.php');			
+			ob_start();
+				include('../application/views/usuarios/delete.php');	
+				$content=ob_get_contents();
+			ob_end_clean();
 		}		
 	break;
 	
@@ -86,9 +91,19 @@ switch ($action)
 		$archivostring = file_get_contents($config['file']);
 		// Separar string por lineas en un array filas
 		$filas = explode("\n",$archivostring);
-		include ('../application/views/usuarios/select.phtml');	
+		ob_start();
+			include ('../application/views/usuarios/select.phtml');
+			$content=ob_get_contents();
+		ob_end_clean();
 	break;
 	
 	default:
 	break;
 }
+
+// Include Layuout
+include('../application/views/layouts/layout.phtml');
+
+
+
+
