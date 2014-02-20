@@ -5,13 +5,13 @@
 <?php foreach($filas as $key => $fila):?>
 	<tr>
 		<?php 
-		$columnas = explode(',',$fila);	
-		$image = array_pop($columnas);
-		foreach ($columnas as $columna):?>
+		$image = $fila['photo'];
+		unset($fila['photo']);
+		foreach ($fila as $columna):?>
 			<td><?=$columna;?></td>
 		<?php endforeach; ?>
 		<td>
-			<img width="100px" src="<?=$image;?>"/>
+			<img width="100px" src="<?='/uploads/'.$image;?>"/>
 		</td>	
 		<td>
 			<a href="usuarios.php?action=update&id=<?=$key;?>">Update</a>

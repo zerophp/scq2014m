@@ -3,7 +3,12 @@
 // include ('../application/models/models_txtfile.php');
 // include ('../application/models/models_uploadfile.php');
 
-$config = parse_ini_file('../application/configs/settings.ini');
+include ('../application/model/model_users.php');
+$config = parse_ini_file('../application/configs/settings.ini', TRUE);
+
+// echo "<pre>";
+// print_r($config);
+// echo "</pre>";
 
 if(isset($_GET['action']))
 	$action=$_GET['action'];
@@ -87,29 +92,10 @@ switch ($action)
 		break;
 
 	case 'select':
-		// Conectar a la DBMS
-		$link=mysqli_connect('localhost', 
-						'root',
-						'');
-		// Conectar a DB
-		mysqli_select_db($link, 'mydb');
-		// Leer los datos de usuario
-		$sql="SELECT * FROM users";
-		$result=mysqli_query($link, $sql);
-		
-		while ($rows=mysqli_fetch_assoc($result))
-		{
-			echo "<pre>";
-			print_r($rows);
-			echo "</pre>";
-		}
-			
-		// 
-		die;
-		
+		$filas=getUsers($config['database']);
 		ob_start();
-		include ('../application/views/users/select.phtml');
-		$content=ob_get_contents();
+			include ('../application/views/users/select.phtml');
+			$content=ob_get_contents();
 		ob_end_clean();
 		break;
 
