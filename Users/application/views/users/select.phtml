@@ -1,0 +1,23 @@
+<h2 class="sub-header">Usuarios</h2>
+<a href="usuarios.php?action=insert">Insertar Usuario</a>
+<br/>
+<table class="table table-striped">
+<?php foreach($filas as $key => $fila):?>
+	<tr>
+		<?php 
+		$columnas = explode(',',$fila);	
+		$image = array_pop($columnas);
+		foreach ($columnas as $columna):?>
+			<td><?=$columna;?></td>
+		<?php endforeach; ?>
+		<td>
+			<img width="100px" src="<?=$image;?>"/>
+		</td>	
+		<td>
+			<a href="usuarios.php?action=update&id=<?=$key;?>">Update</a>
+				&nbsp;
+			<a href="usuarios.php?action=delete&id=<?=$key;?>">Delete</a>
+		</td>
+	</tr>
+<?php endforeach ?>
+</table>
