@@ -2,13 +2,10 @@
 <form method="post" enctype="multipart/form-data">
 <ul>
 <li>
-Id: <input type="hidden" name="id" value="<?=isset($usuario['id'])?$_GET['id']:'-';?>"/>
+Id: <input type="hidden" name="id" value="<?=isset($usuario['iduser'])?$_GET['id']:'-';?>"/>
 </li>
 <li>
-Nombre: <?=isset($usuario['name'])?$usuario['name']:'';?>
-</li>
-<li>
-Apellidos: <?=isset($usuario['lastname'])?$usuario['lastname']:'';?>
+Username: <?=isset($usuario['username'])?$usuario['username']:'';?>
 </li>
 
 

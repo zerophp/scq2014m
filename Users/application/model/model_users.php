@@ -23,6 +23,30 @@ function getUsers($config)
 	return $rows;
 }
 
+function getUser($iduser,$config)
+{
+	$sql="SELECT users.*,
+					 cities.name as city,
+					 genders.name as gender,
+					 users.photo
+			  FROM users, genders, cities
+			  WHERE users.genders_idgender = genders.idgender AND
+					users.cities_idcity = cities.idcity AND
+					users.iduser = ".$iduser;
+
+	$link=connectDB($config);
+	selectDB($link, $config);
+	$result=mysqli_query($link, $sql);
+	while ($row=mysqli_fetch_assoc($result))
+	{
+		$row['pets']=explode('|',getPets($row['iduser'], $config));
+		$row['languages']=explode('|',getLanguages($row['iduser'], $config));
+		$rows[]=$row;
+	}
+
+	return $rows[0];
+}
+
 
 
 function getPets($iduser, $config)
@@ -77,8 +101,25 @@ function getLanguages($iduser, $config)
 }
 
 
+function deleteUser($iduser, $config)
+{
+	$sql = "DELETE FROM users WHERE iduser = ".$iduser;
+
+	$link=connectDB($config);
+	selectDB($link, $config);
+	$result=mysqli_query($link, $sql);
+	return $result;
+}
+
+function updateUser($iduser, $data, $config)
+{
 
 
+	$link=connectDB($config);
+	selectDB($link, $config);
+	$result=mysqli_query($link, $sql);
+	return $result;
+}
 
 
 

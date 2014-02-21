@@ -22,25 +22,18 @@ switch ($action)
 	case 'update':
 		if ($_POST)
 		{
-			$data=getArrayFromTxt($config['file']);
-			$arrayout=getUserLine($_POST);
-			$arrayuser=mapUser2File($arrayout);
-			$usuario = implode(',',$arrayuser);
-			// Modificar la linea del usuario con la linea valida
-			$data[$arrayout['id']]=$usuario;
-			wrt2File('usuarios.txt', $data);
+			updateUser($_POST['id'], $config['database']);
 			// TODO: Implementar cambiar imagen
 			// Saltar a tabla de usuarios
-			header('Location: /usuarios.php');
+			header('Location: /users.php');
 		}
 		else
 		{
-			// Tomar el id
-			$usuario=getUserData($_GET['id']);
+			$usuario=getUser($_GET['id'], $config['database']);
 			// Pasarla al formulario
 			ob_start();
-			include('../application/views/usuarios/insert.php');
-			$content=ob_get_contents();
+				include('../application/views/users/insert.php');
+				$content=ob_get_contents();
 			ob_end_clean();
 		}
 		break;
@@ -57,13 +50,13 @@ switch ($action)
 			insert2Txt($_POST, $config['file']);
 			// Saltar a tabla de usuarios
 			// header('Location: http://formularios.local/usuarios.php');
-			header('Location: /usuarios.php');
+			header('Location: /users.php');
 			// header('Location: usuarios.php');
 		}
 		else
 		{
 			ob_start();
-			include('../application/views/usuarios/insert.php');
+			include('../application/views/users/insert.php');
 			$content=ob_get_contents();
 			ob_end_clean();
 		}
@@ -74,18 +67,16 @@ switch ($action)
 		{
 			if($_POST['borrar']=="Si")
 			{
-				$data=getArrayFromTxt($config['file']);
-				unset($data[$_POST['id']]);
-				// TODO: delete image
-				wrt2File('usuarios.txt', $data);
+				deleteUser($_POST['id'],$config['database']);
+				// TODO: delete image				
 			}
-			header('Location: /usuarios.php');
+			header('Location: /users.php');
 		}
 		else
 		{
-			$usuario=getUserData($_GET['id']);
+			$usuario=getUser($_GET['id'], $config['database']);
 			ob_start();
-			include('../application/views/usuarios/delete.php');
+			include('../application/views/users/delete.php');
 			$content=ob_get_contents();
 			ob_end_clean();
 		}
