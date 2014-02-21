@@ -1,7 +1,7 @@
 <?php
 
 // include ('../application/models/models_txtfile.php');
-// include ('../application/models/models_uploadfile.php');
+include ('../application/model/model_uploadfile.php');
 
 include ('../application/model/model_users.php');
 $config = parse_ini_file('../application/configs/settings.ini', TRUE);
@@ -22,7 +22,8 @@ switch ($action)
 	case 'update':
 		if ($_POST)
 		{
-			updateUser($_POST['id'], $config['database']);
+			update('users', $_POST, $_POST['iduser'],$config['database']);
+			//updateUser($_POST['id'], $_POST, $config['database']);
 			// TODO: Implementar cambiar imagen
 			// Saltar a tabla de usuarios
 			header('Location: /users.php');
@@ -45,9 +46,10 @@ switch ($action)
 					$_SERVER['DOCUMENT_ROOT']);
 			$destino = $_SERVER['DOCUMENT_ROOT'];
 			// Inyectar nombre_final en post.
-			$_POST[]= $photo_name;
+			if(isset($photo_name)&&$photo_name!=='')
+				$_POST['photo']= $photo_name;
 			uploadFile($photo_name, $destino, $_FILES['photo']);
-			insert2Txt($_POST, $config['file']);
+			insert('users', $_POST, $_POST['iduser'],$config['database']);
 			// Saltar a tabla de usuarios
 			// header('Location: http://formularios.local/usuarios.php');
 			header('Location: /users.php');
@@ -76,8 +78,8 @@ switch ($action)
 		{
 			$usuario=getUser($_GET['id'], $config['database']);
 			ob_start();
-			include('../application/views/users/delete.php');
-			$content=ob_get_contents();
+				include('../application/views/users/delete.php');
+				$content=ob_get_contents();
 			ob_end_clean();
 		}
 		break;

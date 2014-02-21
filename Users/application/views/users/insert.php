@@ -1,7 +1,10 @@
 <form method="post" enctype="multipart/form-data">
 	<ul>
 		<li>
-			Id: <input type="hidden" name="id" value="<?=isset($usuario['id'])?$_GET['id']:'-';?>"/>
+			Id: <input type="hidden" name="iduser" value="<?=isset($usuario['iduser'])?$_GET['id']:'-';?>"/>
+		</li>
+		<li>
+			Username: <input type="text" name="username" value="<?=isset($usuario['username'])?$usuario['username']:'';?>"/>
 		</li>
 		<li>
 			Nombre: <input type="text" name="name" value="<?=isset($usuario['name'])?$usuario['name']:'';?>"/>
@@ -19,18 +22,18 @@
 			Descripcion: <textarea rows="10" cols="10" name="description"><?=isset($usuario['description'])?$usuario['description']:'';?></textarea>
 		</li>
 		<li>
-			Ciudad: <select name="cities">
-			<option value="santiago" <?=(isset($usuario['cities'])&&$usuario['cities']=='santiago')?'selected':'';?>>Santiago</option>
-			<option value="vigo" <?=(isset($usuario['cities'])&&$usuario['cities']=='vigo')?'selected':'';?>>Vigo</option>
-			<option value="acoruña" <?=(isset($usuario['cities'])&&$usuario['cities']=='acoruña')?'selected':'';?>>A Coruña</option>
+			Ciudad: <select name="cities_idcity">
+			<option value="1" <?=(isset($usuario['cities_idcity'])&&$usuario['cities_idcity']=='santiago')?'selected':'';?>>Santiago</option>
+			<option value="2" <?=(isset($usuario['cities_idcity'])&&$usuario['cities_idcity']=='vigo')?'selected':'';?>>Vigo</option>
+			<option value="3" <?=(isset($usuario['cities_idcity'])&&$usuario['cities_idcity']=='acoruña')?'selected':'';?>>A Coruña</option>
 			</select>
 		</li>
 		
 		<li>
 			Sexo: 
-			Otros: <input type="radio" value="o" name="gender" <?=(isset($usuario['gender'])&&$usuario['gender']=='o')?'checked':'';?>/>
-			Mujer: <input type="radio" value="m" name="gender" <?=(isset($usuario['gender'])&&$usuario['gender']=='m')?'checked':'';?>/>
-			Hombre: <input type="radio" value="h" name="gender" <?=(isset($usuario['gender'])&&$usuario['gender']=='h')?'checked':'';?>/>
+			Otros: <input type="radio" value="1" name="genders_idgender" <?=(isset($usuario['genders_idgender'])&&$usuario['genders_idgender']=='o')?'checked':'';?>/>
+			Mujer: <input type="radio" value="2" name="genders_idgender" <?=(isset($usuario['genders_idgender'])&&$usuario['genders_idgender']=='m')?'checked':'';?>/>
+			Hombre: <input type="radio" value="3" name="genders_idgender" <?=(isset($usuario['genders_idgender'])&&$usuario['genders_idgender']=='h')?'checked':'';?>/>
 		</li>
 		<li>
 			Mascotas: 
