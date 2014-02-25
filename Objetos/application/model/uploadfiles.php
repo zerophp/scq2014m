@@ -1,7 +1,7 @@
 <?php
 
 
-class uploadFiles
+class model_uploadFiles
 {
 	/**
 	 * Rename file with a counter
@@ -10,7 +10,7 @@ class uploadFiles
 	 * @param string $path
 	 * @return string $final_name
 	 */
-	function renameFile($photo_name, $destino)
+	public static function renameFile($photo_name, $destino)
 	{
 		if(!isset($photo_name)||$photo_name=='')
 			return null;
@@ -38,7 +38,7 @@ class uploadFiles
 	 * @param array $fileData $_FILES data
 	 * @return null
 	 */
-	function uploadFile($name, $path, $fileData)
+	public static function uploadFile($name, $path, $fileData)
 	{
 		// Subir la foto
 		move_uploaded_file($fileData['tmp_name'],

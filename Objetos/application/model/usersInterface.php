@@ -1,13 +1,11 @@
 <?php
 
-interface usersInterface
+interface model_usersInterface
 {
 	public function getUsers();
 	public function getUser($iduser);
-	public function getPets($iduser);
-	public function getLanguages($iduser);
+	public function insertUser($tablename,$data,$id,$config);
+	public function updateUser($tablename, $data, $id, $config);
 	public function deleteUser($iduser, $config);
-	public function deleteUserPets($iduser, $config);
-	public function deleteUserLanguages($iduser, $config);
-	public function updateUser($iduser, $data, $config);	
+		
 }

@@ -1,8 +1,15 @@
 <?php
 
-class model_users_mappers_db_users extends model_mapper_db
+class model_users_mappers_db_users extends model_mappers_db
 {
+	public $link;
+	public $config;
 	
+	public function __construct($config)
+	{
+		$this->config = $config;
+		$this->link = parent::__construct($config);		
+	}
 	
 	public function getUsers()
 	{
@@ -36,13 +43,11 @@ class model_users_mappers_db_users extends model_mapper_db
 					users.cities_idcity = cities.idcity AND
 					users.iduser = ".$iduser;
 	
-		$link=connectDB($config);
-		selectDB($link, $config);
-		$result=mysqli_query($link, $sql);
+		$result=mysqli_query($this->link, $sql);
 		while ($row=mysqli_fetch_assoc($result))
 		{
-			$row['pets']=explode('|',getPets($row['iduser'], $config));
-			$row['languages']=explode('|',getLanguages($row['iduser'], $config));
+			$row['pets']=explode('|',$this->getPets($row['iduser']));
+			$row['languages']=explode('|',$this->getLanguages($row['iduser']));
 			$rows[]=$row;
 		}
 	
@@ -78,39 +83,35 @@ class model_users_mappers_db_users extends model_mapper_db
 	}
 	
 	
-	public function deleteUser($iduser, $config)
+	public function deleteUser($iduser)
 	{
-		deleteUserPets($iduser, $config);
-		deleteUserLanguages($iduser, $config);
+		$this->deleteUserPets($iduser);
+		$this->deleteUserLanguages($iduser);
 		$sql = "DELETE FROM users WHERE iduser = ".$iduser;
 	
-		$link=connectDB($config);
-		selectDB($link, $config);
-		$result=mysqli_query($link, $sql);
+		$result=mysqli_query($this->link, $sql);
 		return $result;
 	}
 	
-	public function deleteUserPets($iduser, $config)
+	public function deleteUserPets($iduser)
 	{
 		$sql = "DELETE FROM users_has_pets
 			WHERE users_iduser = ".$iduser;
-		$link=connectDB($config);
-		selectDB($link, $config);
-		$result=mysqli_query($link, $sql);
+		
+		$result=mysqli_query($this->link, $sql);
 		return $result;
 	}
 	
-	public function deleteUserLanguages($iduser, $config)
+	public function deleteUserLanguages($iduser)
 	{
 		$sql = "DELETE FROM users_has_languages
 			WHERE users_iduser = ".$iduser;
-		$link=connectDB($config);
-		selectDB($link, $config);
-		$result=mysqli_query($link, $sql);
+		
+		$result=mysqli_query($this->link, $sql);
 		return $result;
 	}
 	
-	public function updateUser($iduser, $data, $config)
+	public function updateUser($iduser, $data)
 	{
 		$sql = "UPDATE users SET";
 		foreach($data as $key => $value)
@@ -120,11 +121,8 @@ class model_users_mappers_db_users extends model_mapper_db
 		echo $sql;
 		die;
 	
-		$link=connectDB($config);
-		selectDB($link, $config);
-		$result=mysqli_query($link, $sql);
+		
+		$result=mysqli_query($this->link, $sql);
 		return $result;
 	}
 }
-
-class model_users_mappers_db_pets
