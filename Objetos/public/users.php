@@ -85,7 +85,8 @@ switch ($action)
 		break;
 
 	case 'select':
-		$filas=getUsers($config['database']);
+		$obj = new users($config['database']);
+		$filas = $obj->getUsers();
 		ob_start();
 			include ('../application/views/users/select.phtml');
 			$content=ob_get_contents();
